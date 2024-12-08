@@ -73,7 +73,7 @@ main {
   z-index: 2;
   position: relative;
   transition: transform 0.7s ease-in-out;
-  background-color: hsl(0, 0%, 100%);
+  background-color: hsl(207, 100%, 93%);
   line-height: 1.7;
   max-width: 32em;
   padding: 5% calc(50% - 16em) 35%;
@@ -99,13 +99,14 @@ main {
 
 .block {
   margin: 0 auto;
-  background-color:whitesmoke ;
+  background-color:rgb(211, 235, 255) ;
   width: 1000px;
   border: gray solid 1px;
   padding: 2% 4% 2% 4%;
 }
 
 footer {
+  background-color: rgb(211, 235, 255);
   width: 100vw;
   height: min(100px, 20vmin);
   position: relative;
@@ -114,7 +115,7 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-top: gray solid 1px;
+  border-top: black solid 1px;
 }
 
 footer > p {
