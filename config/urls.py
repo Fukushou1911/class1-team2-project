@@ -20,5 +20,5 @@ from team2app import views as team2app_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('team2app/', include('team2app.urls')),
+    path('', include('team2app.urls')),
 ]
