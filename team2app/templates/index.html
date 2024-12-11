@@ -1,11 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
     <title>落とし物掲示板</title>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'team2app/css/index.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer src="./JavaScript/index.js"></script>
+    <script defer src="{% static 'js/index.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
@@ -20,7 +21,7 @@
       <div class="BBS">
         <div class="block">
             <h2>タイトル</h2>
-            <a href=""><img src="images/忘れ物_sample.png" alt="忘れ物1" id="BBS-images"></a>
+            <a href=""><img src="../static/images/忘れ物_sample.png" alt="忘れ物1" id="BBS-images"></a>
             <p>説明</p>
             <p>説明</p>
             <p>説明</p>
