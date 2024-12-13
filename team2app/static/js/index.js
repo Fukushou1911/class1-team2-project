@@ -1,11 +1,10 @@
-// static/js/index.js
-document.addEventListener('DOMContentLoaded', function() {
-    var pageTop = document.getElementById('page_top');
-    pageTop.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     var pageTop = document.getElementById('page_top');
+//     pageTop.addEventListener('click', function(e) {
+//         e.preventDefault();
+//         window.scrollTo({ top: 0, behavior: 'smooth' });
+//     });
+// });
 
 jQuery(function() {
     var appear = false;
