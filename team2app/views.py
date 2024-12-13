@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 
 def index(request):
-	return render(request, 'index.html')
+	return render(request, 'team2app/index.html')
 
 def login_view(request):
     if request.method == 'POST':
