@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>落とし物掲示板</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="{% static 'js/index.js' %}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+<body>
+    <a href="'{% url 'delete' article.id %}">Delete</a>
+</body>
