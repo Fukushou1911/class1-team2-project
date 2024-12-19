@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<head>
+<html lang="ja">
+  <head>
     {% load static %}
     <meta charset="UTF-8">
     <title>落とし物掲示板</title>
@@ -9,6 +10,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
-<body>
-    <a href="'{% url 'delete' article.id %}">Delete</a>
-</body>
+  <body class="BBS">
+    <header>
+      <h1>落とし物掲示板</h1>
+      <a href="{% url 'login' %}">ログイン</a>
+      <p>INIAD生のための落とし物掲示アプリ</p>
+    </header>
+    <main>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
+      <div id="page_top"><a href="#"></a></div>
+      <div class="BBS">
+        <!-- sample block with delete button -->
+        <div class="block">
+          <h2>タイトル</h2>
+          <a href=""><img src="{% static 'images/忘れ物_sample.png' %}" alt="忘れ物1" id="BBS-images"></a>
+          <p>説明</p>
+          <p>説明</p>
+          <p>説明</p>
+          <!-- Delete button -->
+          <form method="post" action="{% url 'delete_post' post.id %}">
+            {% csrf_token %}
+            <button type="submit">削除</button>
+          </form>
+        </div>
+
+        <!-- 2nd sample block with delete button -->
+        <div class="block">
+          <h2>タイトル</h2>
+          <a href=""><img src="{% static 'images/忘れ物_sample.png' %}" alt="忘れ物2" id="BBS-images"></a>
+          <p>説明</p>
+          <p>説明</p>
+          <p>説明</p>
+          <!-- Delete button -->
+          <form method="post" action="{% url 'delete_post' post.id %}">
+            {% csrf_token %}
+            <button type="submit">削除</button>
+          </form>
+        </div>
+        <!-- More blocks if needed -->
+        
+      </div>
+    </main>
+    <footer id="footer">
+      <p>
+          copyright &copy; 2024<br /><a href="https://github.com/Fukushou1911"
+              >Shou.F</a
+          >, <a href="https://github.com/s1F10230307">Toma.Y</a>, and
+          <a href="https://github.com/s1f10240292">Yurina.H</a>, and
+          <a href="https://github.com/Sshunsuje">Shunsuke.Y</a> All Rights
+          Reserved.
+      </p>
+    </footer>
+  </body>
+</html>
