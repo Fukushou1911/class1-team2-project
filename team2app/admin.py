@@ -1,4 +1,7 @@
 from django.contrib import admin
+from .models import LostItem
+
+admin.site.register(LostItem)
 from .models import Post, Comment
 # Register your models here.
 
