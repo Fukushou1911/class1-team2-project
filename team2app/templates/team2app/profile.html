@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="ja">
+  <head>
+    {% load static %}
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>プロフィール</title>
-</head>
-<body>
-    <h1>{{ user.username }} のプロフィール</h1>
-    <p>ありがとうポイント: {{ user.thank_you_points }}</p>
-</body>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="{% static 'js/index.js' %}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body class="BBS">
+    <main>
+        <h1>{{ user.username }} のプロフィール</h1>
+        <p>ありがとうポイント: {{ user.thank_you_points }}</p>
+        <br>
+        <a href="{% url 'index' %}">トップページへ</a>
+    </main>
+    <footer id="footer">
+        <p>
+            copyright &copy; 2024<br /><a href="https://github.com/Fukushou1911"
+                >Shou.F</a
+            >, <a href="https://github.com/s1F10230307">Toma.Y</a>, and
+            <a href="https://github.com/s1f10240292">Yurina.H</a>, and
+            <a href="https://github.com/Sshunsuje">Shunsuke.Y</a> All Rights
+            Reserved.
+        </p>
+    </footer>
+  </body>
 </html>
