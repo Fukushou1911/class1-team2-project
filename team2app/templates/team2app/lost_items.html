@@ -10,41 +10,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
-<body>
-    <h1>落とし物一覧</h1>
+  <body class="BBS">
+    <main>
+        <h1>落とし物一覧</h1>
 
-    <!-- 検索フォーム -->
-    <form method="get" action="">
-        <input type="text" name="query" placeholder="検索語を入力" value="{{ query|default:'' }}">
-        <button type="submit">検索</button>
-    </form>
-
-    <!-- 一覧表示 -->
-    {% for item in items %}
-        <div>
-            <h2>{{ item.title }}</h2>
-            <p>説明: {{ item.description }}</p>
-            <p>場所: {{ item.location }}</p>
-            <p>日付: {{ item.date_lost }}</p>
-            <p>投稿者: {{ item.posted_by.username }}</p>
-            {% if item.image %}
-                <img src="{{ item.image.url }}" alt="落とし物の画像" style="max-width: 300px;">
-            {% endif %}
-            <form id="delete-form-{{ item.id }}" method="post" action="{% url 'delete_item' item.id %}" style="display: inline;">
-                {% csrf_token %}
-                <button type="button" onclick="confirmDeletion('{{ item.id }}')">削除</button>
-            </form>
-        </div>
-    {% empty %}
-        <p>該当する落とし物が見つかりませんでした。</p>
-    {% endfor %}
-    <a href="{% url 'index' %}">トップページへ</a>
-    <script>
-        function confirmDeletion(itemId) {
-            if (confirm("この投稿を削除しますか？")) {
-                document.getElementById(`delete-form-${itemId}`).submit();
+        <!-- 検索フォーム -->
+        <form method="get" action="">
+            <input type="text" name="query" placeholder="検索語を入力:" value="{{ query|default:'' }}">
+            <button type="submit">検索</button>
+        </form>
+    
+        <!-- 一覧表示 -->
+        {% for item in items %}
+            <div>
+                <h2>{{ item.title }}</h2>
+                <p>説明: {{ item.description }}</p>
+                <p>場所: {{ item.location }}</p>
+                <p>日付: {{ item.date_lost }}</p>
+                <p>投稿者: {{ item.posted_by.username }}</p>
+                {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="落とし物の画像" style="max-width: 300px;">
+                {% endif %}
+                <form id="delete-form-{{ item.id }}" method="post" action="{% url 'delete_item' item.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="button" onclick="confirmDeletion('{{ item.id }}')">削除</button>
+                </form>
+            </div>
+        {% empty %}
+            <p>該当する落とし物が見つかりませんでした。</p>
+        {% endfor %}
+        <a href="{% url 'index' %}">トップページへ</a>
+        <script>
+            function confirmDeletion(itemId) {
+                if (confirm("この投稿を削除しますか？")) {
+                    document.getElementById(`delete-form-${itemId}`).submit();
+                }
             }
-        }
-    </script>
-</body>
+        </script>
+    </main>
+    <footer id="footer">
+        <p>
+            copyright &copy; 2024<br /><a href="https://github.com/Fukushou1911"
+                >Shou.F</a
+            >, <a href="https://github.com/s1F10230307">Toma.Y</a>, and
+            <a href="https://github.com/s1f10240292">Yurina.H</a>, and
+            <a href="https://github.com/Sshunsuje">Shunsuke.Y</a> All Rights
+            Reserved.
+        </p>
+      </footer>
+  </body>
 </html>

@@ -22,6 +22,7 @@ html {
 :root {
   --color-contents: rgb(211, 235, 255);
   --color-link: rgb(136, 187, 228);
+  --color-font1:rgb(36, 155, 253);
 }
 
 header {
@@ -67,6 +68,15 @@ header * {
 
 header p {
   background-color: hsla(0, 0%, 100%,0.1);
+}
+
+header a {
+  text-decoration: none;
+  color: var(--color-font1);
+}
+
+header a:hover {
+  color: var(--color-contents);
 }
 
 main {
@@ -154,6 +164,28 @@ main {
 
 #BBS-images {
   width: 70%;
+}
+
+.BBS a {
+  text-decoration: none;
+  color: var(--color-font1);
+}
+
+.BBS a:hover {
+  color: var(--color-link);
+}
+
+form button {
+  background-color: var(--color-link);
+  border: none;
+  padding: 1% 2% 1% 2%;
+  font-size: 1vw;
+  cursor: pointer;
+  margin: 1% 0 1% 0;
+}
+
+form input {
+  font-size: 1vw;
 }
 
 .block {

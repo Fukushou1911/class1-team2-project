@@ -13,17 +13,18 @@
   <body class="BBS">
     <header>
       <h1>落とし物掲示板</h1>
+      <p>INIAD生のための落とし物掲示アプリ</p>
+      <br>
       <a href="{% url 'login' %}">ログイン</a>
       <a href="{% url 'register' %}">アカウント登録</a>
       <a href="{% url 'lost_items' %}">落とし物一覧</a>
       <a href="{% url 'post_item' %}">落とし物を投稿</a>
       <a href="{% url 'profile' %}">プロフィール</a>  
-      <p>INIAD生のための落とし物掲示アプリ</p>
     </header>
     <main>
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
       <div id="page_top"><a href="#"></a></div>    
-      <div class="BBS">
+      <div class="container">
         <div class="block">
             <h2>タイトル</h2>
             <a href=""><img src="{% static 'images/忘れ物_sample.png' %}" alt="忘れ物1" id="BBS-images"></a>
