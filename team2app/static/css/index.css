@@ -175,6 +175,45 @@ main {
   color: var(--color-link);
 }
 
+.loader-first {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-link);
+  font-size: 45px;
+  font-weight: bold;
+  color: #3fcfe5;
+  z-index: 555;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+
+.loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-link);
+  z-index: 555;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation-name: fadeInAnime;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+}
+
+.txt {
+  font-size: 45px;
+  font-weight: bold;
+  color: #fff;
+}
+
 form button {
   background-color: var(--color-link);
   border: none;
