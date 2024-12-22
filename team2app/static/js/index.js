@@ -31,3 +31,11 @@ jQuery(function() {
       return false;
     });
   });
+
+  setTimeout(() => {
+    document.querySelector(".loader-first").classList.add("loader")
+  }, 1500);
+  
+  setTimeout(() => {
+    document.querySelector(".loader-first").remove();
+  }, 3000);
