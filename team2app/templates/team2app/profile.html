@@ -8,6 +8,33 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer src="{% static 'js/index.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+      }
+      .profile-section {
+          margin-bottom: 20px;
+      }
+      #profile-icon {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          object-fit: cover;
+      }
+      textarea {
+          width: 100%;
+          height: 100px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+      }
+      #bio-display {
+          border: 1px solid #ddd;
+          padding: 10px;
+          background-color: #f9f9f9;
+          min-height: 50px;
+      }
+  </style>
   </head>
 
   <body class="BBS">
@@ -22,6 +49,104 @@
       </div>
 
         <h1>{{ user.username }} のプロフィール</h1>
+        <!-- アイコンセクション -->
+    <div class="profile-section">
+      <h2>アイコン</h2>
+      <img id="profile-icon" src="https://via.placeholder.com/100" alt="プロフィールアイコン" />
+      <br />
+      <input type="file" id="icon-upload" accept="image/*" />
+      <button onclick="uploadIcon()">アイコンをアップロード</button>
+  </div>
+
+  <div class="profile-section">
+      <h2>自己紹介</h2>
+      <!-- 表示状態 -->
+      <div id="bio-display"></div>
+      <button id="edit-button" onclick="startEditBio()">編集する</button>
+
+      <!-- 編集状態 -->
+      <div id="bio-edit-section" style="display: none;">
+          <textarea id="bio" placeholder="自己紹介を入力してください"></textarea>
+          <button onclick="saveBio()">完了</button>
+      </div>
+  </div>
+
+  <script>
+      // ページ読み込み時にデータをロード
+      window.onload = function() {
+          // アイコンをロード
+          const savedIcon = localStorage.getItem('profileIcon');
+          if (savedIcon) {
+              document.getElementById('profile-icon').src = savedIcon;
+          }
+
+          // 自己紹介をロード
+          const savedBio = localStorage.getItem('profileBio');
+          const bioDisplay = document.getElementById('bio-display');
+          if (savedBio) {
+              bioDisplay.textContent = savedBio;
+          } else {
+              bioDisplay.textContent = "自己紹介がまだありません。";
+          }
+      };
+
+      // アイコンをアップロードして保存
+      function uploadIcon() {
+          const fileInput = document.getElementById('icon-upload');
+          const file = fileInput.files[0];
+
+          if (file) {
+              const reader = new FileReader();
+              reader.onload = function(event) {
+                  const imageData = event.target.result;
+                  document.getElementById('profile-icon').src = imageData;
+                  localStorage.setItem('profileIcon', imageData);
+                  alert("アイコンが更新され、保存されました！");
+              };
+              reader.readAsDataURL(file);
+          } else {
+              alert("ファイルを選択してください。");
+          }
+      }
+
+      // 自己紹介の編集を開始
+      function startEditBio() {
+          const bioDisplay = document.getElementById('bio-display');
+          const bioEditSection = document.getElementById('bio-edit-section');
+          const bioTextarea = document.getElementById('bio');
+
+          // 現在の自己紹介をテキストエリアに設定
+          bioTextarea.value = bioDisplay.textContent;
+
+          // 表示切り替え
+          bioDisplay.style.display = 'none';
+          document.getElementById('edit-button').style.display = 'none';
+          bioEditSection.style.display = 'block';
+      }
+
+      // 自己紹介を保存して表示モードに戻る
+      function saveBio() {
+          const bioTextarea = document.getElementById('bio');
+          const bioDisplay = document.getElementById('bio-display');
+          const bioEditSection = document.getElementById('bio-edit-section');
+
+          const bio = bioTextarea.value.trim();
+          if (bio === "") {
+              alert("自己紹介を入力してください。");
+              return;
+          }
+
+          // 保存と表示の更新
+          localStorage.setItem('profileBio', bio);
+          bioDisplay.textContent = bio;
+
+          // 表示切り替え
+          bioEditSection.style.display = 'none';
+          bioDisplay.style.display = 'block';
+          document.getElementById('edit-button').style.display = 'inline';
+      }
+  </script>
+    
         <p>ありがとうポイント: {{ user.thank_you_points }}</p>
         <br>
         <a href="{% url 'index' %}">トップページへ</a>
