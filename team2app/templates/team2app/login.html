@@ -10,7 +10,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
-    <body class="BBS">
+    <body>
+      <header>
+        <nav>
+            <a href="{% url 'index' %}" class="title">INIAD LOSTS</a>
+            <ul class="nav-links">
+                <li><a href="{% url 'post_item' %}">新規投稿</a></li>
+                <li><a href="{% url 'login' %}">ログイン</a></li>
+                <li><a href="{% url 'register' %}">アカウント登録</a></li>
+                <li><a href="{% url 'profile' %}">プロフィール</a></li>
+            </ul>
+          </nav>
+      </header>
         <main>
             <div class="loader-first">
                 <div class="looping-rhombuses-spinner">
@@ -21,7 +32,8 @@
                   <p class="txt">Now Loading...</p>
               </div>
               
-                <h1>ログイン</h1>
+                <p class="title3">ログイン</p>
+                <br>
                 <form method="post">
                     {% csrf_token %}
                     <label for="username">ユーザー名:</label>

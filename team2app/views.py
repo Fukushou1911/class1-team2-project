@@ -8,7 +8,16 @@ from django.contrib import messages
 from .models import LostItem
 
 def index(request):
-	return render(request, 'team2app/index.html')
+    query = request.GET.get('query')  # GETパラメータから検索語を取得
+    if query:
+        items = LostItem.objects.filter(
+            title__icontains=query
+        ) | LostItem.objects.filter(
+            description__icontains=query
+        )
+    else:
+        items = LostItem.objects.all()
+    return render(request, 'team2app/index.html', {'items': items, 'query': query})
 
 def login_view(request):
     if request.method == 'POST':
@@ -32,19 +41,6 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'team2app/register.html', {'form': form})
 
-def lost_items(request):
-    query = request.GET.get('query')  # GETパラメータから検索語を取得
-    if query:
-        items = LostItem.objects.filter(
-            title__icontains=query
-        ) | LostItem.objects.filter(
-            description__icontains=query
-        )
-    else:
-        items = LostItem.objects.all()
-    return render(request, 'team2app/lost_items.html', {'items': items, 'query': query})
-
-
 def post_item(request):
     if request.method == 'POST':
         title = request.POST['title']
@@ -60,7 +56,7 @@ def post_item(request):
             image=image,
             posted_by=request.user
         )
-        return redirect('lost_items')
+        return redirect('index')
     return render(request, 'team2app/post_item.html')
 
 @csrf_exempt
@@ -78,8 +74,8 @@ def delete_item(request, item_id):
             messages.success(request, f"投稿が削除されました。投稿者にありがとうポイントが1ポイント付与されました！")
 
         else:
-            messages.error(request, "この投稿を削除する権限がありません。")
-    return redirect('lost_items')
+            messages.error(request, "自分の投稿のみ削除できます。")
+    return redirect('index')
 
 def profile(request):
     return render(request, 'team2app/profile.html')

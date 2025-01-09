@@ -6,22 +6,25 @@
     <title>落とし物掲示板</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
     <script defer src="{% static 'js/index.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
-  <body class="BBS">
+  <body>
     <header>
-      <h1>落とし物掲示板</h1>
-      <p>INIAD生のための落とし物掲示アプリ</p>
-      <br>
-      <a href="{% url 'login' %}">ログイン</a>
-      <a href="{% url 'register' %}">アカウント登録</a>
-      <a href="{% url 'lost_items' %}">落とし物一覧</a>
-      <a href="{% url 'post_item' %}">落とし物を投稿</a>
-      <a href="{% url 'profile' %}">プロフィール</a>  
-    </header>
-    <main>
+      <nav>
+          <a href="{% url 'index' %}" class="title">INIAD LOSTS</a>
+          <ul class="nav-links">
+              <li><a href="{% url 'post_item' %}">新規投稿</a></li>
+              <li><a href="{% url 'login' %}">ログイン</a></li>
+              <li><a href="{% url 'register' %}">アカウント登録</a></li>
+              <li><a href="{% url 'profile' %}">プロフィール</a></li>
+          </ul>
+        </nav>
+  </header>
+
+  <main>
       <div class="loader-first">
         <div class="looping-rhombuses-spinner">
           <div class="rhombus"></div>
@@ -30,57 +33,66 @@
         </div>
           <p class="txt">Now Loading...</p>
       </div>
-      
+
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.4/css/all.css">
-      <div id="page_top"><a href="#"></a></div>    
-      <div class="container">
-        <div class="block">
-            <h2>タイトル</h2>
-            <a href=""><img src="{% static 'images/忘れ物_sample.png' %}" alt="忘れ物1" id="BBS-images"></a>
-            <p>説明</p>
-            <p>説明</p>
-            <p>説明</p>
-        </div>
-        <div class="block">
-            <h2>タイトル</h2>
-            <a href=""><img src="{% static 'images/忘れ物_sample.png' %}" alt="忘れ物2" id="BBS-images"></a>
-            <p>説明</p>
-            <p>説明</p>
-            <p>説明</p>
-        </div>
-        <div class="block">
-            <h2>タイトル</h2>
-            <a href=""><img src="{% static 'images/忘れ物_sample.png' %}" alt="忘れ物3" id="BBS-images"></a>
-            <p>説明</p>
-            <p>説明</p>
-            <p>説明</p>
-        </div>
-        <div class="block">
-            <h2>タイトル</h2>
-            <a href=""><img src="{% static 'images/忘れ物_sample.png' %}" alt="忘れ物4" id="BBS-images"></a>
-            <p>説明</p>
-            <p>説明</p>
-            <p>説明</p>
-        </div>
-        <div class="block">
-            <h2>タイトル</h2>
-            <a href=""><img src="{% static 'images/忘れ物_sample.png' %}" alt="忘れ物5" id="BBS-images"></a>
-            <p>説明</p>
-            <p>説明</p>
-            <p>説明</p>
+      <div id="page_top"><a href="#"></a></div>
+
+      <!-- 検索フォーム -->
+      <form method="get" action="">
+          <input type="text" name="query" placeholder="検索語を入力:" value="{{ query|default:'' }}">
+          <button type="submit">検索</button>
+      </form>    
+
+      <p class="title2">落とし物一覧</p>
+        <div class="lost-items">
+          <div class="post-card">
+            {% for item in items %}
+              <div class="post-header">
+                  <div class="item-title">{{ item.title }}</div>
+                  <span class="date">{{ item.date_lost }}</span>
+              </div>
+              <p class="post-content">
+                  {% if item.image %}
+                      <img src="{{ item.image.url }}" class="LostItem_img" alt="落とし物の画像">
+                  {% endif %}
+                  <div class="location">場所： {{ item.location }}</div>
+                  <br>
+                  <div class="item-description">説明： {{ item.description }}</div>
+                  <script>
+                    function confirmDeletion(itemId) {
+                        if (confirm("この投稿を削除しますか？")) {
+                            document.getElementById(`delete-form-${itemId}`).submit();
+                        }
+                    }
+                </script>
+              <div class="post-footer">
+                <span class="author">{{ item.posted_by.username }}</span>
+                <div class="actions">
+                  <form id="delete-form-{{ item.id }}" method="post" action="{% url 'delete_item' item.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="button" onclick="confirmDeletion('{{ item.id }}')">削除</button>
+                  </form>
+                  <button class="reply-btn">返信</button>
+                </div>
+              </div>
+                  {% empty %}
+                  <p>該当する落とし物が見つかりませんでした。</p>
+              </p>
+              {% endfor %}
+          </div>              
         </div>
       </div>
-      </main>
-      <footer id="footer">
-        <p>
-            copyright &copy; 2024<br /><a href="https://github.com/Fukushou1911"
-                >Shou.F</a
-            >, <a href="https://github.com/s1F10230307">Toma.Y</a>, and
-            <a href="https://github.com/s1f10240292">Yurina.H</a>, and
-            <a href="https://github.com/Sshunsuje">Shunsuke.Y</a> All Rights
-            Reserved.
-        </p>
-      </footer>
-    </div>   
+  </main>
+
+  <footer>
+      <p>
+          copyright &copy; 2024<br /><a href="https://github.com/Fukushou1911"
+              >Shou.F</a
+          >, <a href="https://github.com/s1F10230307">Toma.Y</a>, and
+          <a href="https://github.com/s1f10240292">Yurina.H</a>, and
+          <a href="https://github.com/Sshunsuje">Shunsuke.Y</a> All Rights
+          Reserved.
+      </p>
+  </footer>   
   </body>
 </html>

@@ -10,7 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
-  <body class="BBS">
+  <body>
+    <header>
+      <nav>
+          <a href="{% url 'index' %}" class="title">INIAD LOSTS</a>
+          <ul class="nav-links">
+              <li><a href="{% url 'post_item' %}">新規投稿</a></li>
+              <li><a href="{% url 'login' %}">ログイン</a></li>
+              <li><a href="{% url 'register' %}">アカウント登録</a></li>
+              <li><a href="{% url 'profile' %}">プロフィール</a></li>
+          </ul>
+        </nav>
+    </header>
+    
     <main>
       <div class="loader-first">
         <div class="looping-rhombuses-spinner">
@@ -20,7 +32,8 @@
         </div>
           <p class="txt">Now Loading...</p>
       </div>
-      
+
+      <div class="post">
         <h1>落とし物を投稿</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -41,8 +54,9 @@
             <br>
             <button type="submit">投稿</button>
         </form>
-        <br>
-        <a href="{% url 'index' %}">トップページへ</a>
+      </div>
+      <br>
+      <a href="{% url 'index' %}" class="TopPage">トップページへ</a>
     </main>
     <footer id="footer">
         <p>
